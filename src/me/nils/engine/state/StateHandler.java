@@ -1,9 +1,11 @@
 package me.nils.engine.state;
 
+import java.util.ArrayList;
+
 /**
- * Class that represents a chess position (whole board).
+ * Class that handles chess positions.
  */
-public class GameState {
+public class StateHandler {
 
     //                                    v - color
     private static final short WHITE  = 0b0001;
@@ -17,17 +19,14 @@ public class GameState {
     private static final short KING   = 0b1100;
     //                                     ^^^ - piece type
 
-    private final String fen;
-    private final short[] pieces;
+    private final ArrayList<short[]> states;
     private final int[] pieceMap;
 
     /**
-     * Constructor for the GameState class.
-     * @param fen The fen string representing the game state.
+     * Constructor for the StateHandler class.
      */
-    public GameState(String fen) {
-        this.fen = fen;
-        pieces = new short[32];
+    public StateHandler() {
+        states = new ArrayList<>();
 
         pieceMap = new int[256];
         pieceMap['R'] = WHITE | ROOK;    pieceMap['r'] = BLACK | ROOK;
@@ -40,8 +39,9 @@ public class GameState {
 
     /**
      * Loads the stored FEN (Forsyth Edwards Notation) string into the game state.
+     * @param fen The FEN string to be loaded.
      */
-    public void loadFen() {
+    public void loadFen(String fen) {
         /*
         0: pieces
         1: active color
@@ -51,8 +51,9 @@ public class GameState {
         5: full move number
          */
         String[] tokens = fen.split(" ");
+        short[] pieces = new short[33];
 
-        int i = 0, j = 0;
+        int i = 1, j = 0;
         for (char c : tokens[0].toCharArray()) {
             if (Character.isDigit(c)) {
                 j += c - '0';
@@ -65,14 +66,16 @@ public class GameState {
             j++;
             pieces[i++] = piece;
         }
+
+        states.add(pieces);
     }
 
     /**
-     * Getter for the pieces array.
-     * @return An array of shorts representing pieces.
+     * Getter for game states.
+     * @return An array list that contains game states.
      */
-    public short[] getPieces() {
-        return pieces;
+    public ArrayList<short[]> getStates() {
+        return states;
     }
 
 }
