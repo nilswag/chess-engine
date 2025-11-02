@@ -73,7 +73,7 @@ public class StateHandler {
         if (!tokens[3].equals("-")) {
             // 0 as en passant index is fine since it is not possible, hence a good value for no en passant
             char[] pos = tokens[3].toCharArray();
-            index = pos[0] - 97 + (pos[1] - '0') * 8;
+            index = pos[0] - 97 + (pos[1] - '0' - 1) * 8;
         }
 
         // castling
@@ -83,8 +83,8 @@ public class StateHandler {
         metadata |= index << 6;
         metadata |= castling << 4;
         metadata |= color;
-        pieces[0] = (short)(metadata << 16);
-        pieces[1] = (short)(metadata & 0xFFFF);
+        pieces[0] = (short)(metadata >> 16);
+        pieces[1] = (short)(metadata); // same as using 0xFFFF mask
     }
 
     /**
