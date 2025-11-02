@@ -51,23 +51,61 @@ public class StateHandler {
         5: full move number
          */
         String[] tokens = fen.split(" ");
-        short[] pieces = new short[33];
+        short[] pieces = new short[34]; // row-major order btw.
+        parseMetadata(tokens, pieces);
+        parsePieces(tokens[0], pieces);
+        states.add(pieces);
+    }
 
-        int i = 1, j = 0;
-        for (char c : tokens[0].toCharArray()) {
+    /**
+     * Helper method that parses FEN metadata, like: active color, castling, en passant and half move clock.
+     * @param tokens Array of FEN tokens.
+     * @param pieces Array of pieces.
+     */
+    // 0: active color, 1-4: castling availability, 5-11: en passant square index, 12-17: half move clock
+    private void parseMetadata(String[] tokens, short[] pieces) {
+        int clock = 0, index = 0, castling = 0, color = 1;
+
+        // half move counter
+        clock = Integer.parseInt(tokens[4]) << 6;
+
+        // en passant target square
+        if (!tokens[3].equals("-")) {
+            // 0 as en passant index is fine since it is not possible, hence a good value for no en passant
+            char[] pos = tokens[3].toCharArray();
+            index = pos[0] - 97 + (pos[1] - '0') * 8;
+        }
+
+        // castling
+
+        // color
+        int metadata = clock << 6;
+        metadata |= index << 6;
+        metadata |= castling << 4;
+        metadata |= color;
+        pieces[0] = (short)(metadata << 16);
+        pieces[1] = (short)(metadata & 0xFFFF);
+    }
+
+    /**
+     * Helper method that parses FEN pieces.
+     * @param token The FEN token that represents the pieces.
+     * @param pieces Array of pieces.
+     */
+    private void parsePieces(String token, short[] pieces) {
+        int i = 2, j = 0;
+        for (char c : token.toCharArray()) {
             if (Character.isDigit(c)) {
                 j += c - '0';
                 continue;
             } else if (c == '/')
                 continue;
 
-            // 15-13: piece type, 12: color, 11-6: index, 5-0: metadata
-            short piece = (short)((pieceMap[c] << 4 | j) << 6);
+            // 0-5: index, 6: color, 7-9: piece type
+            short piece = (short)(pieceMap[c] << 4 | j);
             j++;
             pieces[i++] = piece;
         }
-
-        states.add(pieces);
     }
 
     /**
