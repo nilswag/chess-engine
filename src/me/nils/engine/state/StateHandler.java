@@ -67,7 +67,7 @@ public class StateHandler {
         int clock = 0, index = 0, castling = 0, color = 1;
 
         // half move counter
-        clock = Integer.parseInt(tokens[4]) << 6;
+        clock = Integer.parseInt(tokens[4]);
 
         // en passant target square
         if (!tokens[3].equals("-")) {
