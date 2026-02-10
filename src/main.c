@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    printf("%s\n", "Hello World!");
+    printf("%s\n", __TIME__);
     return 0;
 }
