@@ -4,6 +4,7 @@
 
 void load_fen(Position* pos, const char* fen_str)
 {
+
     for (u64 i = 0; i < strlen(fen_str); i++)
     {
         char c = fen_str[i];
