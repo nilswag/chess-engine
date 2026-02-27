@@ -1,34 +1,61 @@
 #include <stdarg.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <time.h>
 
 #include "lce/util/logger.h"
-
-static const char* prefixes[6] = 
-{
-    "FATAL: ",
-    "ERORR: ",
-    "WARN: ",
-    "INFO: ",
-    "DEBUG: ",
-    "TRACE: "
-};
 
 void lce_logger_output(LCELogLevel level, const char* file, int line, const char* message, ...)
 {
     if (level < 0 || level >= 6) return;
     FILE* out = level < LCE_LOG_LEVEL_WARNING ? stderr : stdout;
 
-    fprintf(out, "%s:%d ", file, line);
-    fputs(prefixes[level], out);
+    static const char* prefix[6] = 
+    {
+        "FATAL",
+        "ERROR",
+        "WARN ",
+        "INFO ",
+        "DEBUG",
+        "TRACE"
+    };
 
+    const char* color = LCE_LOG_COLOR_RESET;
+    switch (level)
+    {
+        case LCE_LOG_LEVEL_FATAL:
+        case LCE_LOG_LEVEL_ERROR:
+            color = LCE_LOG_COLOR_RED;
+            break;
+        case LCE_LOG_LEVEL_WARNING:
+            color = LCE_LOG_COLOR_YELLOW;
+            break;
+        case LCE_LOG_LEVEL_INFO:
+            color = LCE_LOG_COLOR_WHITE;
+            break;
+        case LCE_LOG_LEVEL_DEBUG:
+            color = LCE_LOG_COLOR_BLUE;
+            break;
+        case LCE_LOG_LEVEL_TRACE:
+            color = LCE_LOG_COLOR_CYAN;
+            break;
+    }
+
+    // timestamp
+    time_t now = time(NULL);
+    struct tm t;
+    localtime_s(&t, &now);
+    char timebuf[16]; // buffer for time string (max. should be 8 bytes)
+    strftime(timebuf, sizeof(timebuf), "%H:%M:%S", &t);
+
+    // header
+    fprintf(out, "%s[%s][%s][%s:%d] ", color, prefix[level], timebuf, file, line);
+
+    // message
     va_list args;
     va_start(args, message);
     vfprintf(out, message, args);
     va_end(args);
 
-    fputc('\n', out);
-
-    if (level == LCE_LOG_LEVEL_FATAL) abort();
+    // footer
+    fprintf(out, "%s\n", LCE_LOG_COLOR_RESET);
 }
