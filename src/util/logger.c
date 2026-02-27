@@ -30,9 +30,5 @@ void lce_logger_output(LCELogLevel level, const char* file, int line, const char
 
     fputc('\n', out);
 
-    if (level == LCE_LOG_LEVEL_FATAL) 
-    {
-        fflush(out);
-        exit(EXIT_FAILURE);
-    }
+    if (level == LCE_LOG_LEVEL_FATAL) abort();
 }
