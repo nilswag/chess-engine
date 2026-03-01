@@ -44,7 +44,7 @@ void lce_logger_output(LCELogLevel level, const char* file, int line, const char
     time_t now = time(NULL);
     struct tm t;
     localtime_s(&t, &now);
-    char timebuf[16]; // buffer for time string (max. should be 8 bytes)
+    char timebuf[9]; // buffer for time string (max. should be 8 bytes +1 for null terminator)
     strftime(timebuf, sizeof(timebuf), "%H:%M:%S", &t);
 
     // header
