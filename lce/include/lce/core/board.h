@@ -1,6 +1,8 @@
 #pragma once
 #include <stdint.h>
 
+#define LCE_STARTING_FEN "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
+
 typedef enum LCEPieceType {
     LCE_PIECE_TYPE_PAWN = 0,
     LCE_PIECE_TYPE_KNIGHT,
@@ -19,7 +21,7 @@ typedef enum LCEPieceColor {
 
 typedef struct LCEBoard
 {
-    uint64_t board[LCE_PIECE_COLOR_N][LCE_PIECE_TYPE_N];
+    uint64_t pieces[LCE_PIECE_COLOR_N][LCE_PIECE_TYPE_N];
 } LCEBoard;
 
 void lce_board_init(LCEBoard* board);
