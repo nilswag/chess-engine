@@ -25,9 +25,9 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
         else if (*ptr >= '1' && *ptr <= '8') index += *ptr - '0'; // skip empty squares
         else
         {
-            LCEPieceType piece;
+            LCEPieceType type;
             LCEPieceColor color;
-            if (lce_board_char_to_type(*ptr, &piece, &color) != LCE_OK) return LCE_ERROR_FEN_PARSE;
+            if (lce_board_fen_to_piece(*ptr, &color, &type) != LCE_OK) return LCE_ERROR_FEN_PARSE;
             
             if (index < 0 || index >= 64)
             {
@@ -35,7 +35,7 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
                 return LCE_ERROR_OUT_OF_BOUNDS;
             }
 
-            board->pieces[color][piece] |= 1ULL << index;
+            board->pieces[color][type] |= 1ULL << index;
             index++;
         }
 
@@ -52,9 +52,9 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
     return LCE_OK;
 }
 
-LCEError lce_board_char_to_type(char c, LCEPieceType* type, LCEPieceColor* color)
+LCEError lce_board_fen_to_piece(char c, LCEPieceColor* color, LCEPieceType* type)
 {
-    if (!type || !color)
+    if (!color || !type)
     {
         LCE_ERROR("Null pointer passed as argument");
         return LCE_ERROR_NULL_POINTER;
@@ -82,7 +82,7 @@ LCEError lce_board_char_to_type(char c, LCEPieceType* type, LCEPieceColor* color
     return LCE_OK;
 }
 
-LCEError lce_board_type_to_char(LCEPieceType type, LCEPieceColor color, char* c)
+LCEError lce_board_piece_to_fen(LCEPieceColor color, LCEPieceType type, char* c)
 {
     if (!c)
     {
@@ -90,9 +90,9 @@ LCEError lce_board_type_to_char(LCEPieceType type, LCEPieceColor color, char* c)
         return LCE_ERROR_NULL_POINTER;
     }
 
-    if (type < 0 || type >= LCE_PIECE_TYPE_NR || color < 0 || color >= LCE_PIECE_COLOR_NR)
+    if (color < 0 || color >= LCE_PIECE_COLOR_NR || type < 0 || type >= LCE_PIECE_TYPE_NR)
     {
-        LCE_ERROR("Invalid piece type or color passed");
+        LCE_ERROR("Invalid piece color or type passed");
         return LCE_ERROR_INVALID_ARGUMENT;
     }
 

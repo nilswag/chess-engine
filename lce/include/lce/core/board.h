@@ -30,5 +30,5 @@ typedef struct LCEBoard
 
 LCEError lce_load_fen(LCEBoard* board, const char* fen);
 
-LCEError lce_board_char_to_type(char c, LCEPieceType* type, LCEPieceColor* color);
-LCEError lce_board_type_to_char(LCEPieceType type, LCEPieceColor color, char* c);
+LCEError lce_board_fen_to_piece(char c, LCEPieceColor* color, LCEPieceType* type);
+LCEError lce_board_piece_to_fen(LCEPieceColor color, LCEPieceType type, char* c);
