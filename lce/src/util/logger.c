@@ -4,7 +4,7 @@
 
 #include "lce/util/logger.h"
 
-void lce_logger_output(LCELogLevel level, const char* file, int line, const char* message, ...)
+void lce_logger_output(LCELogLevel level, const char* file, int line, const char* func, const char* message, ...)
 {
     if (level < 0 || level >= 6) return;
     FILE* out = level < LCE_LOG_LEVEL_WARNING ? stderr : stdout;
@@ -48,7 +48,7 @@ void lce_logger_output(LCELogLevel level, const char* file, int line, const char
     strftime(timebuf, sizeof(timebuf), "%H:%M:%S", &t);
 
     // header
-    fprintf(out, "%s[%s][%s][%s:%d] ", color, prefix[level], timebuf, file, line);
+    fprintf(out, "%s[%s][%s][%s:%d][%s] ", color, prefix[level], timebuf, file, line, func);
 
     // message
     va_list args;
