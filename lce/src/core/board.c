@@ -19,6 +19,8 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
     const char* ptr = fen;
 
     LCE_TRACE("Started parsing FEN string");
+    // parsing pieces
+    LCE_TRACE("Parsing pieces...");
     while (*ptr && *ptr != ' ')
     {
         if (*ptr == '/') index -= 16; // because of LERF mapping and the row below we need to subtract 16
@@ -41,14 +43,24 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
 
         ptr++;
     }
-    LCE_TRACE("Finished parsing FEN string");
-
-    // TODO: add current move parsing
+    
+    // parsing current turn
+    LCE_TRACE("Pargins current turn...");
+    ptr++;
+    if (*ptr == 'w') board->current_turn = LCE_PIECE_COLOR_WHITE;
+    else if (*ptr == 'b') board->current_turn = LCE_PIECE_COLOR_BLACK;
+    else 
+    {
+        LCE_ERROR("Invalid fen string");
+        return LCE_ERROR_FEN_PARSE;
+    }
+    
     // TODO: add castling parsing
     // TODO: add en passant parsing
     // TODO: add 50-move rule parsing
     // TODO: add total moves counter parsing
 
+    LCE_TRACE("Finished parsing FEN string");
     return LCE_OK;
 }
 

@@ -1,6 +1,7 @@
 #include <stdio.h>
 
 #include "lce/core/board.h"
+#include "lce/util/logger.h"
 
 void print_board(LCEBoard* board)
 {
@@ -22,7 +23,7 @@ void print_board(LCEBoard* board)
                     }
                 }
             }
-            
+
         print:
             printf("%c", c);
         }
@@ -34,11 +35,9 @@ void print_board(LCEBoard* board)
 int main(void)
 {
     LCEBoard board;
-    lce_load_fen(&board, LCE_STARTING_FEN);
-    print_board(&board);
-
     lce_load_fen(&board, "8/8/8/4p1K1/2k1P3/8/8/8 b - - 0 1");
     print_board(&board);
+    LCE_INFO("Current turn: %s", board.current_turn == LCE_PIECE_COLOR_WHITE ? "white" : "black");
 
     return 0;
 }

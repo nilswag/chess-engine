@@ -26,6 +26,7 @@ typedef struct LCEBoard
 {
     // each bitboard used LERF mapping (little endian rank-file mapping)
     uint64_t pieces[LCE_PIECE_COLOR_NR][LCE_PIECE_TYPE_NR];
+    LCEPieceColor current_turn;
 } LCEBoard;
 
 LCEError lce_load_fen(LCEBoard* board, const char* fen);
