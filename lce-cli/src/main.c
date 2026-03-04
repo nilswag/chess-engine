@@ -6,11 +6,11 @@ void print_board(LCEBoard* board)
 {
     for (int rank = 7; rank >= 0; rank--)
     {
-        char c = '.';
-
         for (int file = 0; file < 8; file++)
         {
+            char c = '.';
             int sq = rank * 8 + file;
+            
             for (int color = 0; color < LCE_PIECE_COLOR_NR; color++)
             {
                 for (int type = 0; type < LCE_PIECE_TYPE_NR; type++)
@@ -24,8 +24,9 @@ void print_board(LCEBoard* board)
             }
         print:
             printf("%c", c);
-            if (!(sq % 8)) putchar('\n');
         }
+
+        putchar('\n');
     }
 }
 
