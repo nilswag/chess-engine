@@ -1,6 +1,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <time.h>
+#include <string.h>
 
 #include "lce/util/logger.h"
 
@@ -48,7 +49,7 @@ void lce_logger_output(LCELogLevel level, const char* file, int line, const char
     strftime(timebuf, sizeof(timebuf), "%H:%M:%S", &t);
 
     // header
-    fprintf(out, "%s[%s][%s][%s:%d][%s] ", color, prefix[level], timebuf, file, line, func);
+    fprintf(out, "%s[%s][%s][%s:%d][%s] ", color, prefix[level], timebuf, strrchr(file, '/') + 1, line, func);
 
     // message
     va_list args;

@@ -10,7 +10,8 @@ void print_board(LCEBoard* board)
         {
             for (int color = 0; type < LCE_PIECE_COLOR_NR; color++)
             {
-                
+                char c;
+                if (lce_board_type_to_char(type, color, &c)) printf("%c", c);
             }
         }
         if (!(i % 8)) putchar('\n');
