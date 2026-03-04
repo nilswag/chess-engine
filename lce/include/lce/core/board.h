@@ -29,7 +29,9 @@ typedef struct LCEBoard
     LCEPieceColor current_turn;
 } LCEBoard;
 
-LCEError lce_load_fen(LCEBoard* board, const char* fen);
+LCEError lce_board_init(LCEBoard* board);
+LCEError lce_board_deinit(LCEBoard* board);
 
+LCEError lce_load_fen(LCEBoard* board, const char* fen);
 LCEError lce_board_fen_to_piece(char c, LCEPieceColor* color, LCEPieceType* type);
 LCEError lce_board_piece_to_fen(LCEPieceColor color, LCEPieceType type, char* c);

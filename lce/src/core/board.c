@@ -4,6 +4,29 @@
 #include "lce/util/logger.h"
 #include "lce/core/board.h"
 
+LCEError lce_board_init(LCEBoard* board)
+{
+    if (!board)
+    {
+        LCE_FATAL("Null pointer passed as argument");
+        return LCE_ERROR_NULL_POINTER;
+    }
+
+    memset(board, 0, sizeof(LCEBoard));
+    return LCE_OK;
+}
+
+LCEError lce_board_deinit(LCEBoard* board)
+{
+    if (!board)
+    {
+        LCE_FATAL("Null pointer passed as argument");
+        return LCE_ERROR_NULL_POINTER;
+    }
+
+    return LCE_OK;
+}
+
 LCEError lce_load_fen(LCEBoard* board, const char* fen)
 {
     if (!board || !fen)

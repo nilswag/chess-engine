@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include <string.h>
+#include <stdlib.h>
 
 #include "lce/util/logger.h"
 
@@ -59,4 +60,6 @@ void lce_logger_output(LCELogLevel level, const char* file, int line, const char
 
     // footer
     fprintf(out, "%s\n", LCE_LOG_COLOR_RESET);
+
+    if (level == LCE_LOG_LEVEL_FATAL) exit(EXIT_FAILURE);
 }
