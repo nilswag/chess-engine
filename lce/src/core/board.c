@@ -62,18 +62,18 @@ LCEError lce_board_fen_to_piece(char c, LCEPieceColor* color, LCEPieceType* type
 
     switch (c)
     {
-        case 'p': *type = LCE_PIECE_TYPE_PAWN;   *color = LCE_PIECE_COLOR_BLACK; break;
-        case 'n': *type = LCE_PIECE_TYPE_KNIGHT; *color = LCE_PIECE_COLOR_BLACK; break;
-        case 'b': *type = LCE_PIECE_TYPE_BISHOP; *color = LCE_PIECE_COLOR_BLACK; break;
-        case 'r': *type = LCE_PIECE_TYPE_ROOK;   *color = LCE_PIECE_COLOR_BLACK; break;
-        case 'q': *type = LCE_PIECE_TYPE_QUEEN;  *color = LCE_PIECE_COLOR_BLACK; break;
-        case 'k': *type = LCE_PIECE_TYPE_KING;   *color = LCE_PIECE_COLOR_BLACK; break;
-        case 'P': *type = LCE_PIECE_TYPE_PAWN;   *color = LCE_PIECE_COLOR_WHITE; break;
-        case 'N': *type = LCE_PIECE_TYPE_KNIGHT; *color = LCE_PIECE_COLOR_WHITE; break;
-        case 'B': *type = LCE_PIECE_TYPE_BISHOP; *color = LCE_PIECE_COLOR_WHITE; break;
-        case 'R': *type = LCE_PIECE_TYPE_ROOK;   *color = LCE_PIECE_COLOR_WHITE; break;
-        case 'Q': *type = LCE_PIECE_TYPE_QUEEN;  *color = LCE_PIECE_COLOR_WHITE; break;
-        case 'K': *type = LCE_PIECE_TYPE_KING;   *color = LCE_PIECE_COLOR_WHITE; break;
+        case 'p': *color = LCE_PIECE_COLOR_BLACK; *type = LCE_PIECE_TYPE_PAWN;   break;
+        case 'n': *color = LCE_PIECE_COLOR_BLACK; *type = LCE_PIECE_TYPE_KNIGHT; break;
+        case 'b': *color = LCE_PIECE_COLOR_BLACK; *type = LCE_PIECE_TYPE_BISHOP; break;
+        case 'r': *color = LCE_PIECE_COLOR_BLACK; *type = LCE_PIECE_TYPE_ROOK;   break;
+        case 'q': *color = LCE_PIECE_COLOR_BLACK; *type = LCE_PIECE_TYPE_QUEEN;  break;
+        case 'k': *color = LCE_PIECE_COLOR_BLACK; *type = LCE_PIECE_TYPE_KING;   break;
+        case 'P': *color = LCE_PIECE_COLOR_WHITE; *type = LCE_PIECE_TYPE_PAWN;   break;
+        case 'N': *color = LCE_PIECE_COLOR_WHITE; *type = LCE_PIECE_TYPE_KNIGHT; break;
+        case 'B': *color = LCE_PIECE_COLOR_WHITE; *type = LCE_PIECE_TYPE_BISHOP; break;
+        case 'R': *color = LCE_PIECE_COLOR_WHITE; *type = LCE_PIECE_TYPE_ROOK;   break;
+        case 'Q': *color = LCE_PIECE_COLOR_WHITE; *type = LCE_PIECE_TYPE_QUEEN;  break;
+        case 'K': *color = LCE_PIECE_COLOR_WHITE; *type = LCE_PIECE_TYPE_KING;   break;
         default:
             LCE_ERROR("Invalid FEN character: %c", c);
             return LCE_ERROR_INVALID_ARGUMENT;

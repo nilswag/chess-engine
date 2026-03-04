@@ -22,6 +22,7 @@ void print_board(LCEBoard* board)
                     }
                 }
             }
+            
         print:
             printf("%c", c);
         }
@@ -33,7 +34,10 @@ void print_board(LCEBoard* board)
 int main(void)
 {
     LCEBoard board;
-    lce_load_fen(&board, "rnbqkbnr/pp1ppppp/8/2p5/4P3/5N2/PPPP1PPP/RNBQKB1R b KQkq - 1 2 ");
+    lce_load_fen(&board, LCE_STARTING_FEN);
+    print_board(&board);
+
+    lce_load_fen(&board, "8/8/8/4p1K1/2k1P3/8/8/8 b - - 0 1");
     print_board(&board);
 
     return 0;
