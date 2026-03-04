@@ -4,17 +4,27 @@
 
 void print_board(LCEBoard* board)
 {
-    for (int i = 63; i > 0; i--)
+    for (int i = 63; i >= 0; i--)
     {
+        char c = '.';
+
         for (int type = 0; type < LCE_PIECE_TYPE_NR; type++)
         {
-            for (int color = 0; type < LCE_PIECE_COLOR_NR; color++)
+            for (int color = 0; color < LCE_PIECE_COLOR_NR; color++)
             {
-                char c;
-                if (lce_board_type_to_char(type, color, &c)) printf("%c", c);
+                if (board->pieces[color][type] & (1ULL << i))
+                {
+                    lce_board_type_to_char(type, color, &c);
+                    goto print;
+                }
             }
         }
-        if (!(i % 8)) putchar('\n');
+
+    print:
+        printf("%c", c);
+
+        if (i % 8 == 0)
+            printf("\n");
     }
 }
 
