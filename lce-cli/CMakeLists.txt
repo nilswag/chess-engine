@@ -11,6 +11,6 @@ target_include_directories(${PROJECT_NAME}
     PRIVATE include/
 )
 
-target_link_directories(${PROJECT_NAME}
+target_link_libraries(${PROJECT_NAME}
     PRIVATE lce
 )
