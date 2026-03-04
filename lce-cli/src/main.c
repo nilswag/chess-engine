@@ -1,7 +1,11 @@
-#include <stdio.h>
+#include "lce/core/board.h"
 
 int main(void)
 {
-    printf("Hello World!\n");
+    LCEBoard board;
+    lce_board_init(&board);
+
+    lce_load_fen(&board, LCE_STARTING_FEN);
+
     return 0;
 }
