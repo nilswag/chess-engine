@@ -22,10 +22,8 @@ typedef enum LCEPieceColor
 
 typedef struct LCEBoard
 {
+    // each bitboard used LERF mapping (little endian rank-file mapping)
     uint64_t pieces[LCE_PIECE_COLOR_NR][LCE_PIECE_TYPE_NR];
 } LCEBoard;
 
-void lce_board_init(LCEBoard* board);
-void lce_board_destroy(LCEBoard* board);
-
-void lce_board_load_fen(LCEBoard* board, const char* fen_str);
+void lce_board_load_fen(LCEBoard* board, const char* fen);
