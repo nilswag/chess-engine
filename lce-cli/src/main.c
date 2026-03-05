@@ -7,7 +7,7 @@ int main(void)
     LCEBoard board;
     lce_board_init(&board);
 
-    lce_load_fen(&board, "8/8/8/4p1K1/2k1P3/8/8/8 b - - 0 1");
+    lce_load_fen(&board, "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR");
     lce_print_board(&board);
 
     lce_board_deinit(&board);
