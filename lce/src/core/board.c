@@ -35,7 +35,7 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
         return LCE_ERROR_NULL_POINTER;
     }
 
-    LCE_TRACE("FEN string: %s", fen);
+    LCE_DEBUG("FEN string: %s", fen);
 
     memset(board->pieces, 0, sizeof(board->pieces));
     int index = 56; // start at a8
@@ -68,7 +68,7 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
     }
     
     // parsing current turn
-    LCE_TRACE("Pargins current turn...");
+    LCE_TRACE("Parsing current turn...");
     ptr++;
     if (*ptr == 'w') board->current_turn = LCE_PIECE_COLOR_WHITE;
     else if (*ptr == 'b') board->current_turn = LCE_PIECE_COLOR_BLACK;
@@ -84,6 +84,7 @@ LCEError lce_load_fen(LCEBoard* board, const char* fen)
     // TODO: add total moves counter parsing
 
     LCE_TRACE("Finished parsing FEN string");
+    LCE_DEBUG("Loaded position: side=%c, pieces=%d", board->current_turn == LCE_PIECE_COLOR_WHITE ? 'w' : 'b', 10);
     return LCE_OK;
 }
 

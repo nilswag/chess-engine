@@ -44,10 +44,7 @@ LCEError lce_print_board(LCEBoard* board)
     printf(" ");
     for (int i = 0; i < 8; i++)
         printf("%c", rank_chars[i]);
-
     putchar('\n');
-
-    printf("%s to move\n", board->current_turn == LCE_PIECE_COLOR_WHITE ? "white" : "black");
 
     return LCE_OK;
 }
