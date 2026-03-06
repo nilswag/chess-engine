@@ -15,7 +15,7 @@ LCEError lce_print_board(LCEBoard* board)
 
     for (int rank = 7; rank >= 0; rank--)
     {
-        printf("%d ", rank);
+        printf("%d|", rank);
 
         for (int file = 0; file < 8; file++)
         {
@@ -41,10 +41,13 @@ LCEError lce_print_board(LCEBoard* board)
         putchar('\n');
     }
 
+    printf("  ");
+    for (int i = 0; i < 8; i++)
+        printf("-");
     printf("\n  ");
     for (int i = 0; i < 8; i++)
         printf("%c", rank_chars[i]);
-    putchar('\n');
+    printf("\n");
 
     return LCE_OK;
 }
