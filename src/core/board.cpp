@@ -1,12 +1,18 @@
 #include <string>
 #include "board.h"
 
-Board::Board(const std::string& position)
+Board::Board(const std::string& startingFen)
 {
-	LoadFen(position);
+	loadFen(startingFen);
 }
 
-void Board::LoadFen(const std::string& str)
+void Board::loadFen(const std::string& fen)
 {
+	std::string::const_iterator it = fen.begin();
+	it = parseBoard(it);
+}
 
+std::string::const_iterator parseBoard(const std::string::const_iterator& it)
+{
+	
 }

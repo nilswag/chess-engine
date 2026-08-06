@@ -9,7 +9,7 @@ class Board
 public:
 	enum PieceType
 	{
-		PAWN = 2,
+		PAWN = 0,
 		KNIGHT,
 		BISHOP,
 		ROOK,
@@ -25,10 +25,11 @@ public:
 		N_COLORS
 	};
 
-	Board(const std::string& position = DEFAULT_POSITION);
+	Board(const std::string& startingFen = DEFAULT_POSITION);
 
 private:
-	void LoadFen(const std::string& position);
+	void loadFen(const std::string& fen);
+	std::string::const_iterator parseBoard(const std::string::const_iterator& it);
 
-	uint64_t m_pieceBB[N_PIECES * 2];
+	uint64_t pieceBB[N_PIECES * 2];
 };
