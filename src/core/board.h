@@ -25,11 +25,10 @@ public:
 		N_COLORS
 	};
 
-	Board(const std::string& startingFen = DEFAULT_POSITION);
+	Board(const std::string& startingFen);
 
 private:
-	void loadFen(const std::string& fen);
-	void parseBoard(const std::string& fen);
+	void parseFen(const std::string& fenStr);
 
-	uint64_t pieceBB[N_PIECES * 2];
+	uint64_t pieceBB[N_COLORS][N_PIECES] = {};
 };

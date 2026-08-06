@@ -1,41 +1,49 @@
 #include <string>
+#include <spdlog/spdlog.h>
 #include "board.h"
 
 Board::Board(const std::string& startingFen)
 {
-	loadFen(startingFen);
+	parseFen(startingFen);
 }
 
-void Board::loadFen(const std::string& fen)
+void Board::parseFen(const std::string& fenStr)
 {
-	parseBoard(fen);
-}
+	// board
+	int index = 56;
+	char c;
 
-void Board::parseBoard(const std::string& fen)
-{
-	int index = 0;
-	auto it = fen.cbegin();
-	while (it++ != fen.cend() && *it != ' ')
+	auto it = fenStr.cbegin();
+	while (it != fenStr.cend() && (c = *it++) != ' ')
 	{
-		if (*it == '/')
+		if (c == '/')
+		{
+			index -= 16;
 			continue;
+		}
 
-		if		(*it == 'p') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'P') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'n') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'N') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'b') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'B') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'r') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'R') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'q') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'Q') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'k') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
-		else if (*it == 'K') pieceBB[BLACK | PAWN] = static_cast<uint64_t>(1) << index;
+		if (c == 'p')	   pieceBB[BLACK][PAWN] |= 1ULL << index;
+		else if (c == 'n') pieceBB[BLACK][KNIGHT] |= 1ULL << index;
+		else if (c == 'b') pieceBB[BLACK][BISHOP] |= 1ULL << index;
+		else if (c == 'r') pieceBB[BLACK][ROOK] |= 1ULL << index;
+		else if (c == 'q') pieceBB[BLACK][QUEEN] |= 1ULL << index;
+		else if (c == 'k') pieceBB[BLACK][KING] |= 1ULL << index;
+		else if (c == 'P') pieceBB[WHITE][PAWN] |= 1ULL << index;
+		else if (c == 'N') pieceBB[WHITE][KNIGHT] |= 1ULL << index;
+		else if (c == 'B') pieceBB[WHITE][BISHOP] |= 1ULL << index;
+		else if (c == 'R') pieceBB[WHITE][ROOK] |= 1ULL << index;
+		else if (c == 'Q') pieceBB[WHITE][QUEEN] |= 1ULL << index;
+		else if (c == 'K') pieceBB[WHITE][KING] |= 1ULL << index;
 
-		index++;
+		if (isdigit(c))
+			index += c - '0';
+		else
+			index++;
 	}
 
-	for (int i = 0; i < N_PIECES * 2; i++)
-		pieceBB[i] ^= 7;
+	// current/next move
+	// castling
+	// en passant
+
+	spdlog::debug("Parsed FEN string: {}", fenStr);
 }

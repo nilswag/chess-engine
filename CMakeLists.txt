@@ -10,6 +10,8 @@ set(HEADERS
 	src/core/board.h
 )
 
+add_subdirectory(third_party/spdlog)
+
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
@@ -17,10 +19,14 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
 	CXX_STANDARD_REQUIRED TRUE
 )
 
-target_compile_definitions(${PROJECT_NAME}
-	PRIVATE $<$<CONFIG:Debug>:_DEBUG>
+target_link_libraries(${PROJECT_NAME}
+	PRIVATE spdlog
 )
 
 target_include_directories(${PROJECT_NAME}
 	PRIVATE src
+)
+
+target_compile_definitions(${PROJECT_NAME}
+	PRIVATE $<$<CONFIG:Debug>:_DEBUG>
 )
