@@ -29,7 +29,7 @@ public:
 
 private:
 	void loadFen(const std::string& fen);
-	std::string::const_iterator parseBoard(const std::string::const_iterator& it);
+	void parseBoard(const std::string& fen);
 
 	uint64_t pieceBB[N_PIECES * 2];
 };
