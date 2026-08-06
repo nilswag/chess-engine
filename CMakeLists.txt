@@ -3,10 +3,11 @@ project(chess-engine)
 
 set(SOURCES
 	src/main.cpp
+	src/core/board.cpp
 )
 
 set(HEADERS
-
+	src/core/board.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})

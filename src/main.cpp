@@ -1,7 +1,7 @@
-#include <iostream>
+#include "core/board.h"
 
 int main()
 {
-	std::cout << "Hello World!" << std::endl;
+	Board board;
 	return 0;
 }
