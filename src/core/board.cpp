@@ -1,15 +1,11 @@
 #include <string>
 #include <spdlog/spdlog.h>
+#include "defines.h"
 #include "board.h"
 
-Board::Board(const std::string& starting_fen)
+Board::Board(const std::string& fen_str)
 {
-	parseFen(starting_fen);
-}
-
-void Board::parseFen(const std::string& fen_str)
-{
-	// board parsing
+	// piece placement
 	int index = 56;
 	char c;
 
@@ -22,18 +18,26 @@ void Board::parseFen(const std::string& fen_str)
 			continue;
 		}
 
-		if (c == 'p')	   m_pieces[BLACK][PAWN] |= 1ULL << index;
-		else if (c == 'n') m_pieces[BLACK][KNIGHT] |= 1ULL << index;
-		else if (c == 'b') m_pieces[BLACK][BISHOP] |= 1ULL << index;
-		else if (c == 'r') m_pieces[BLACK][ROOK] |= 1ULL << index;
-		else if (c == 'q') m_pieces[BLACK][QUEEN] |= 1ULL << index;
-		else if (c == 'k') m_pieces[BLACK][KING] |= 1ULL << index;
-		else if (c == 'P') m_pieces[WHITE][PAWN] |= 1ULL << index;
-		else if (c == 'N') m_pieces[WHITE][KNIGHT] |= 1ULL << index;
-		else if (c == 'B') m_pieces[WHITE][BISHOP] |= 1ULL << index;
-		else if (c == 'R') m_pieces[WHITE][ROOK] |= 1ULL << index;
-		else if (c == 'Q') m_pieces[WHITE][QUEEN] |= 1ULL << index;
-		else if (c == 'K') m_pieces[WHITE][KING] |= 1ULL << index;
+		uint64_t val = 1ULL << index;
+		switch (c)
+		{
+		case 'p': pieces[tul(Color::Black)][tul(Piece::Pawn)] |= val; break;
+		case 'n': pieces[tul(Color::Black)][tul(Piece::Knight)] |= val; break;
+		case 'b': pieces[tul(Color::Black)][tul(Piece::Bishop)] |= val; break;
+		case 'r': pieces[tul(Color::Black)][tul(Piece::Rook)] |= val; break;
+		case 'q': pieces[tul(Color::Black)][tul(Piece::Queen)] |= val; break;
+		case 'k': pieces[tul(Color::Black)][tul(Piece::King)] |= val; break;
+
+		case 'P': pieces[tul(Color::Black)][tul(Piece::Pawn)] |= val; break;
+		case 'N': pieces[tul(Color::Black)][tul(Piece::Knight)] |= val; break;
+		case 'B': pieces[tul(Color::Black)][tul(Piece::Bishop)] |= val; break;
+		case 'R': pieces[tul(Color::Black)][tul(Piece::Rook)] |= val; break;
+		case 'Q': pieces[tul(Color::Black)][tul(Piece::Queen)] |= val; break;
+		case 'K': pieces[tul(Color::Black)][tul(Piece::King)] |= val; break;
+
+		default:
+			break;
+		}
 
 		if (isdigit(c))
 			index += c - '0';
@@ -42,11 +46,73 @@ void Board::parseFen(const std::string& fen_str)
 	}
 	it++;
 
-	// current/next move
-	m_current_turn = *it;
+	for (auto& color : pieces)
+	{
+		for (auto& pieces : color)
+			occupied |= pieces;
+	}
+	empty = ~occupied;
 
-	// castling
-	// en passant
+	// side to move
+	current_turn = *it++ == 'w';
+	it++;
 
-	spdlog::debug("Parsed FEN string: {}", fen_str);
+	// castling ability
+	castling_ability = 0;
+	while (it != fen_str.cend() && (c = *it++) != ' ')
+	{
+		if (c == '-')
+			break;
+		else if (c == 'K')
+			castling_ability |= 1ULL << 3;
+		else if (c == 'Q')
+			castling_ability |= 1ULL << 2;
+		else if (c == 'k')
+			castling_ability |= 1ULL << 1;
+		else if (c == 'q')
+			castling_ability |= 1ULL << 0;
+	}
+	it++;
+
+	// TODO: en passsant target square
+
+	// TODO: halfmove clock
+	
+	// TODO: fullmove clock
+}
+
+uint64_t pawn_single_push_targets(Board& board, const Color& color)
+{
+	uint64_t pawns = board.pieces[tul(color)][tul(Piece::Pawn)];
+	if (color == Color::White)
+		return pawns;
+	else
+		;
+}
+
+uint64_t pawn_double_push_targets(Board& board, const Color& color)
+{
+	uint64_t pawns = board.pieces[tul(color)][tul(Piece::Pawn)];
+	if (color == Color::White)
+		return pawns;
+	else
+		;
+}
+
+uint64_t pawn_able_to_single_push(Board& board, const Color& color)
+{
+	uint64_t pawns = board.pieces[tul(color)][tul(Piece::Pawn)];
+	if (color == Color::White)
+		return pawns;
+	else
+		;
+}
+
+uint64_t pawn_able_to_double_push(Board& board, const Color& color)
+{
+	uint64_t pawns = board.pieces[tul(color)][tul(Piece::Pawn)];
+	if (color == Color::White)
+		return pawns;
+	else
+		;
 }

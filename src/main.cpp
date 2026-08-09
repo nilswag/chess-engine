@@ -6,8 +6,6 @@ int main()
 #ifdef _DEBUG
 	spdlog::set_level(spdlog::level::trace);
 #endif
-
-	Board board(DEFAULT_POSITION);
-
+	Board board("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1");
 	return 0;
 }
