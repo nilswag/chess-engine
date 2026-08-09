@@ -1,5 +1,4 @@
 #include <string>
-#include <spdlog/spdlog.h>
 #include "defines.h"
 #include "board.h"
 
@@ -85,9 +84,9 @@ uint64_t pawn_single_push_targets(Board& board, const Color& color)
 {
 	uint64_t pawns = board.pieces[tul(color)][tul(Piece::Pawn)];
 	if (color == Color::White)
-		return pawns;
+		return (pawns << tul(Direction::North)) & board.empty;
 	else
-		;
+		return (pawns >> tul(Direction::South)) & board.empty;
 }
 
 uint64_t pawn_double_push_targets(Board& board, const Color& color)
