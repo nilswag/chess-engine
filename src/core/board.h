@@ -8,7 +8,7 @@ struct Board
 	~Board() = default;
 	Board(const std::string& fen_str);
 		
-	uint64_t pieces[tul(Color::Count)][tul(Piece::Count)] = {};
+	uint64_t pieces[tul(bb::Color::Count)][tul(bb::Piece::Count)] = {};
 	uint64_t empty = ULLONG_MAX;
 	uint64_t occupied = 0;
 	
@@ -22,19 +22,19 @@ struct Board
 /**
  * @brief Generates set for all available single pawn push target squares
  */
-uint64_t pawn_single_push_targets(Board& board, const Color& color);
+uint64_t pawn_single_push_targets(Board& board, const bb::Color& color);
 
 /**
  * @brief Generates set for all available double pawn push target squares
  */
-uint64_t pawn_double_push_targets(Board& board, const Color& color);
+uint64_t pawn_double_push_targets(Board& board, const bb::Color& color);
 
 /**
  * @brief Generates set of the source squares of pawns able to do single push
  */
-uint64_t pawn_able_to_single_push(Board& board, const Color& color);
+uint64_t pawn_able_to_single_push(Board& board, const bb::Color& color);
 
 /**
  * @brief Generates set of the source squares of pawns able to do double push
  */
-uint64_t pawn_able_to_double_push(Board& board, const Color& color);
+uint64_t pawn_able_to_double_push(Board& board, const bb::Color& color);
