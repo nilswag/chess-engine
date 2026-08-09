@@ -1,36 +1,40 @@
 #pragma once
-#include <cstdint>
 #include <string>
+#include "defines.h"
 
-#define DEFAULT_POSITION "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1"
-
-class Board
+struct Board
 {
-public:
-	enum PieceType
-	{
-		PAWN = 0,
-		KNIGHT,
-		BISHOP,
-		ROOK,
-		QUEEN,
-		KING,
-		N_PIECES
-	};
-
-	enum PieceColor
-	{
-		BLACK = 0,
-		WHITE,
-		N_COLORS
-	};
-
-	Board(const std::string& starting_fen);
-
-private:
-	void parseFen(const std::string& fen_str);
-
-	uint64_t m_pieces[N_COLORS][N_PIECES] = {};
-	char m_current_turn;
-	std::string m_castling;
+	Board() = default;
+	~Board() = default;
+	Board(const std::string& fen_str);
+		
+	uint64_t pieces[tul(Color::Count)][tul(Piece::Count)] = {};
+	uint64_t empty = ULLONG_MAX;
+	uint64_t occupied = 0;
+	
+	bool current_turn = true;
+	uint8_t castling_ability = 0;
+	uint8_t en_passant_sq = 0;
+	uint8_t halfmove_clock = 0;
+	uint8_t fullmove_clock = 0;
 };
+
+/**
+ * @brief Generates set for all available single pawn push target squares
+ */
+uint64_t pawn_single_push_targets(Board& board, const Color& color);
+
+/**
+ * @brief Generates set for all available double pawn push target squares
+ */
+uint64_t pawn_double_push_targets(Board& board, const Color& color);
+
+/**
+ * @brief Generates set of the source squares of pawns able to do single push
+ */
+uint64_t pawn_able_to_single_push(Board& board, const Color& color);
+
+/**
+ * @brief Generates set of the source squares of pawns able to do double push
+ */
+uint64_t pawn_able_to_double_push(Board& board, const Color& color);
