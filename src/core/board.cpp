@@ -2,19 +2,19 @@
 #include <spdlog/spdlog.h>
 #include "board.h"
 
-Board::Board(const std::string& startingFen)
+Board::Board(const std::string& starting_fen)
 {
-	parseFen(startingFen);
+	parseFen(starting_fen);
 }
 
-void Board::parseFen(const std::string& fenStr)
+void Board::parseFen(const std::string& fen_str)
 {
-	// board
+	// board parsing
 	int index = 56;
 	char c;
 
-	auto it = fenStr.cbegin();
-	while (it != fenStr.cend() && (c = *it++) != ' ')
+	auto it = fen_str.cbegin();
+	while (it != fen_str.cend() && (c = *it++) != ' ')
 	{
 		if (c == '/')
 		{
@@ -22,28 +22,31 @@ void Board::parseFen(const std::string& fenStr)
 			continue;
 		}
 
-		if (c == 'p')	   pieceBB[BLACK][PAWN] |= 1ULL << index;
-		else if (c == 'n') pieceBB[BLACK][KNIGHT] |= 1ULL << index;
-		else if (c == 'b') pieceBB[BLACK][BISHOP] |= 1ULL << index;
-		else if (c == 'r') pieceBB[BLACK][ROOK] |= 1ULL << index;
-		else if (c == 'q') pieceBB[BLACK][QUEEN] |= 1ULL << index;
-		else if (c == 'k') pieceBB[BLACK][KING] |= 1ULL << index;
-		else if (c == 'P') pieceBB[WHITE][PAWN] |= 1ULL << index;
-		else if (c == 'N') pieceBB[WHITE][KNIGHT] |= 1ULL << index;
-		else if (c == 'B') pieceBB[WHITE][BISHOP] |= 1ULL << index;
-		else if (c == 'R') pieceBB[WHITE][ROOK] |= 1ULL << index;
-		else if (c == 'Q') pieceBB[WHITE][QUEEN] |= 1ULL << index;
-		else if (c == 'K') pieceBB[WHITE][KING] |= 1ULL << index;
+		if (c == 'p')	   m_pieces[BLACK][PAWN] |= 1ULL << index;
+		else if (c == 'n') m_pieces[BLACK][KNIGHT] |= 1ULL << index;
+		else if (c == 'b') m_pieces[BLACK][BISHOP] |= 1ULL << index;
+		else if (c == 'r') m_pieces[BLACK][ROOK] |= 1ULL << index;
+		else if (c == 'q') m_pieces[BLACK][QUEEN] |= 1ULL << index;
+		else if (c == 'k') m_pieces[BLACK][KING] |= 1ULL << index;
+		else if (c == 'P') m_pieces[WHITE][PAWN] |= 1ULL << index;
+		else if (c == 'N') m_pieces[WHITE][KNIGHT] |= 1ULL << index;
+		else if (c == 'B') m_pieces[WHITE][BISHOP] |= 1ULL << index;
+		else if (c == 'R') m_pieces[WHITE][ROOK] |= 1ULL << index;
+		else if (c == 'Q') m_pieces[WHITE][QUEEN] |= 1ULL << index;
+		else if (c == 'K') m_pieces[WHITE][KING] |= 1ULL << index;
 
 		if (isdigit(c))
 			index += c - '0';
 		else
 			index++;
 	}
+	it++;
 
 	// current/next move
+	m_current_turn = *it;
+
 	// castling
 	// en passant
 
-	spdlog::debug("Parsed FEN string: {}", fenStr);
+	spdlog::debug("Parsed FEN string: {}", fen_str);
 }
