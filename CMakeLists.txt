@@ -6,13 +6,9 @@ set(SOURCES
 	src/core/board.cpp
 )
 
-set(HEADERS
-	src/core/board.h
-)
-
 add_subdirectory(third_party/spdlog)
 
-add_executable(${PROJECT_NAME} ${SOURCES} ${HEADERS})
+add_executable(${PROJECT_NAME} ${SOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	CXX_STANDARD 23
