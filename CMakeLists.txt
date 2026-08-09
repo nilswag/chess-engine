@@ -4,6 +4,7 @@ project(chess-engine)
 set(SOURCES
 	src/main.cpp
 	src/core/board.cpp
+	src/generation/pawn.cpp
 )
 
 add_subdirectory(third_party/spdlog)
