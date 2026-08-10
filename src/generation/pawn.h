@@ -6,22 +6,22 @@
 namespace lce::generation::pawn
 {
 	/**
-	* @brief Generates set for all available single pawn push target squares
+	* @brief Returns set of all pseudo-legal pawn attacks for white
 	*/
-	uint64_t pawn_single_push_targets(Board& board, const bb::Color& color);
+	uint64_t w_pawn_attacks(uint64_t pawns);
 
 	/**
-	 * @brief Generates set for all available double pawn push target squares
-	 */
-	uint64_t pawn_double_push_targets(Board& board, const bb::Color& color);
+	* @brief Returns set of single push targets for white pawns
+	*/
+	uint64_t w_pawn_single_push_targets(uint64_t pawns, uint64_t empty);
 
 	/**
-	 * @brief Generates set of the source squares of pawns able to do single push
-	 */
-	uint64_t pawn_able_to_single_push(Board& board, const bb::Color& color);
+	* @brief Returns set of double push targets for white pawns
+	*/
+	uint64_t w_pawn_double_push_targets(uint64_t pawns, uint64_t empty);
 
 	/**
-	 * @brief Generates set of the source squares of pawns able to do double push
-	 */
-	uint64_t pawn_able_to_double_push(Board& board, const bb::Color& color);
+	* @brief Returns set of single and double push targets for white pawns
+	*/
+	uint64_t w_pawn_targets(uint64_t pawns, uint64_t empty);
 }
