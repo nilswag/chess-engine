@@ -9,6 +9,8 @@ namespace lce
 		Board() = default;
 		~Board() = default;
 		Board(const std::string& fen_str);
+		std::string to_string() const;
+		uint64_t get_bb(bb::Color color, bb::Piece piece) const;
 
 		uint64_t pieces[tul(bb::Color::Count)][tul(bb::Piece::Count)] = {};
 		uint64_t occupancy[tul(bb::Color::Count)] = {};
@@ -23,13 +25,8 @@ namespace lce
 	};
 
 	/**
-	* @brief Prints a formatted bitboard
+	* @brief Returns a formatted bitboard string
 	*/
-	void print_bitboard(uint64_t board);
-
-	/**
-	* @brief Prints a formatted board
-	*/
-	void print_board(Board& board);
+	std::string bb_to_string(uint64_t board);
 
 }
