@@ -48,11 +48,14 @@ namespace lce
 		}
 		it++;
 
-		for (auto& color : pieces)
+		for (int i = 0; i < tul(bb::Color::Count); i++)
 		{
-			for (auto& pieces : color)
-				occupied |= pieces;
+			for (int j = 0; j < tul(bb::Piece::Count); j++)
+			{
+				occupancy[i] |= pieces[i][j];
+			}
 		}
+		occupied = occupancy[0] | occupancy[1];
 		empty = ~occupied;
 
 		// side to move
