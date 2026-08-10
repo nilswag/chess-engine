@@ -48,10 +48,19 @@ namespace lce
 
 		namespace constants
 		{
-			constexpr uint64_t a_file = 0x0101010101010101ULL;
-			constexpr uint64_t not_a_file = ~a_file;
-			constexpr uint64_t h_file = 0x8080808080808080ULL;
-			constexpr uint64_t not_h_file = ~h_file;
+			constexpr uint64_t A_FILE = 0x0101010101010101ULL;
+			constexpr uint64_t H_FILE = 0x8080808080808080ULL;
+			constexpr uint64_t NOT_A_FILE = ~A_FILE;
+			constexpr uint64_t NOT_H_FILE = ~H_FILE;
+
+			constexpr uint64_t RANK_1 = 0x00000000000000FFULL;
+			constexpr uint64_t RANK_2 = 0x000000000000FF00ULL;
+			constexpr uint64_t RANK_3 = 0x0000000000FF0000ULL;
+			constexpr uint64_t RANK_4 = 0x00000000FF000000ULL;
+			constexpr uint64_t RANK_5 = 0x000000FF00000000ULL;
+			constexpr uint64_t RANK_6 = 0x0000FF0000000000ULL;
+			constexpr uint64_t RANK_7 = 0x00FF000000000000ULL;
+			constexpr uint64_t RANK_8 = 0xFF00000000000000ULL;
 		}
 
 		/**
@@ -62,17 +71,17 @@ namespace lce
 		/**
 		 * @brief Function for moving set north east by one
 		 */
-		inline constexpr uint64_t move_north_east(uint64_t bb) { return (bb & constants::not_h_file) << 9; }
+		inline constexpr uint64_t move_north_east(uint64_t bb) { return (bb & constants::NOT_H_FILE) << 9; }
 
 		/**
 		 * @brief Function for moving set east by one
 		 */
-		inline constexpr uint64_t move_east(uint64_t bb) { return (bb & constants::not_h_file) << 1; }
+		inline constexpr uint64_t move_east(uint64_t bb) { return (bb & constants::NOT_H_FILE) << 1; }
 
 		/**
 		 * @brief Function for moving set south east by one
 		 */
-		inline constexpr uint64_t move_south_east(uint64_t bb) { return (bb & constants::not_h_file) >> 7; }
+		inline constexpr uint64_t move_south_east(uint64_t bb) { return (bb & constants::NOT_H_FILE) >> 7; }
 
 		/**
 		 * @brief Function for moving set south by one
@@ -82,17 +91,17 @@ namespace lce
 		/**
 		 * @brief Function for moving set south west by one
 		 */
-		inline constexpr uint64_t move_south_west(uint64_t bb) { return (bb & constants::not_a_file) >> 9; }
+		inline constexpr uint64_t move_south_west(uint64_t bb) { return (bb & constants::NOT_A_FILE) >> 9; }
 
 		/**
 		 * @brief Function for moving set west by one
 		 */
-		inline constexpr uint64_t move_west(uint64_t bb) { return (bb & constants::not_a_file) >> 1; }
+		inline constexpr uint64_t move_west(uint64_t bb) { return (bb & constants::NOT_A_FILE) >> 1; }
 
 		/**
 		 * @brief Function for moving set north west by one
 		 */
-		inline constexpr uint64_t move_north_west(uint64_t bb) { return (bb & constants::not_a_file) << 7; }
+		inline constexpr uint64_t move_north_west(uint64_t bb) { return (bb & constants::NOT_A_FILE) << 7; }
 
 	}
 }
