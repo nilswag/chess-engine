@@ -1,5 +1,6 @@
 #include <string>
 #include <cstdint>
+#include <spdlog/spdlog.h>
 #include "defines.h"
 #include "board.h"
 
@@ -86,4 +87,25 @@ namespace lce
 		// TODO: fullmove clock
 	}
 
+	void print_bitboard(uint64_t board)
+	{
+		std::string row;
+		row.reserve(17);
+
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				row += 
+			}
+
+			spdlog::info(row);
+			row.clear();
+		}
+	}
+
+	void print_board(Board& board)
+	{
+
+	}
 }

@@ -22,4 +22,14 @@ namespace lce
 		uint8_t fullmove_clock = 0;
 	};
 
+	/**
+	* @brief Prints a formatted bitboard
+	*/
+	void print_bitboard(uint64_t board);
+
+	/**
+	* @brief Prints a formatted board
+	*/
+	void print_board(Board& board);
+
 }
