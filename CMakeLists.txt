@@ -3,6 +3,10 @@ project(chess-engine C)
 
 set(SOURCES
 	src/main.c
+	src/util/log.c
+
+	src/util/log.h
+	src/util/colors.h
 )
 
 add_executable(${PROJECT_NAME} ${SOURCES})

@@ -1,7 +1,9 @@
-#include <stdio.h>
+#include "util/log.h"
 
 int main(void)
 {
-	puts("Hello, World!");
+	INFO("Hello World!");
+	DEBUG("Hello World!");
+	TRACE("Hello World!");
 	return 0;
 }
