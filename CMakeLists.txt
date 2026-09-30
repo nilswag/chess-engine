@@ -3,17 +3,19 @@ project(chess-engine C)
 
 set(SOURCES
 	src/main.c
-	src/util/log.c
-
-	src/util/log.h
-	src/util/colors.h
 )
+
+add_subdirectory(third_party/nwbase)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
 set_target_properties(${PROJECT_NAME} PROPERTIES
 	C_STANDARD 17
 	C_STANDARD_REQUIRED TRUE
+)
+
+target_link_libraries(${PROJECT_NAME}
+	PRIVATE nwbase
 )
 
 target_include_directories(${PROJECT_NAME}
