@@ -10,7 +10,7 @@ static const char* _level_color(LogLevel level)
 	{
 		case LOG_LEVEL_TRACE: return COLOR_BLUE;
 		case LOG_LEVEL_DEBUG: return COLOR_CYAN;
-		case LOG_LEVEL_INFO:  return COLOR_WHITE;
+		case LOG_LEVEL_INFO:  return COLOR_GREEN;
 		case LOG_LEVEL_WARN:  return COLOR_YELLOW;
 		case LOG_LEVEL_ERROR: return COLOR_RED;
 		case LOG_LEVEL_FATAL: return COLOR_BOLD_RED;
@@ -41,9 +41,6 @@ void log(LogLevel level,
 	int line,
 	const char* fmt, ...)
 {
-	if (level >= LOG_LEVEL)
-		return;
-
 	time_t now = time(NULL);
 	struct tm* tm = localtime(&now);
 
@@ -52,10 +49,11 @@ void log(LogLevel level,
 
 	FILE* out = level >= LOG_LEVEL_ERROR ? stderr : stdout;
 
-	fprintf(out, "%s%s %s:%d %s[%-5s]%s ",
+	fprintf(out, "%s%s %s%-5s %s%s:%d %s",
 		COLOR_GRAY, time_buf,
-		file, line,
-		_level_color(level), _level_str(level), COLOR_RESET
+		_level_color(level), _level_str(level),
+		COLOR_GRAY, file, line,
+		COLOR_RESET
 	);
 
 	va_list args;

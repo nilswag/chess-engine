@@ -2,8 +2,11 @@
 
 int main(void)
 {
-	INFO("Hello World!");
-	DEBUG("Hello World!");
 	TRACE("Hello World!");
+	DEBUG("Hello World!");
+	INFO("Hello World!");
+	WARN("Hello World!");
+	ERROR("Hello World!");
+	//FATAL("Hello World!");
 	return 0;
 }
