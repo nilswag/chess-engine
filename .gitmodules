@@ -1,3 +1,4 @@
 [submodule "third_party/nwbase"]
 	path = third_party/nwbase
 	url = git@github.com:nilswag/nwbase.git
+    branch = main
