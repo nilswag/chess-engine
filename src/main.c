@@ -6,6 +6,6 @@ int main(void)
 	DEBUG("Hello World!");
 	INFO("Hello World!");
 	WARN("Hello World!");
-	ERROR("Hello World!");
+	ERROR("Helsaaalo World!");
 	return 0;
 }

@@ -5,6 +5,8 @@ set(SOURCES
 	src/main.c
 )
 
+include(CTest)
+
 add_subdirectory(third_party/nwbase)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
