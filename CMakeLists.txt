@@ -3,6 +3,7 @@ project(chess-engine C)
 
 set(SOURCES
 	src/main.c
+	src/core/board.c
 )
 
 include(CTest)
